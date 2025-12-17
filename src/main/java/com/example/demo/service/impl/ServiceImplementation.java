@@ -19,7 +19,8 @@ public class ServiceImplementation implements StudentService {
     public Student createData(Student stu) {
         return repo.save(stu);
     }
-
+    @Override
+    
     public List<Student> fetchRecord() {
         return repo.findAll();
     }
