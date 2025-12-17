@@ -1,26 +1,48 @@
 package com.example.demo.entity;
+import jakarta.persistence.*;
 
+@Entity
 public class Student {
 
-    private Long id;
-    private String name;
-    private String department;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String stuname;
+    private String stuemail;
+    private float cgpa;
 
-    public Student(Long id, String name, String department) {
-        this.id = id;
-        this.name = name;
-        this.department = department;
-    }
-
-    public Long getId() {
+    public int getId(){
         return id;
     }
-
-    public String getName() {
-        return name;
+    public void setId(int id){
+        this.id = id;
+    }
+    public String getStuname(){
+        return stuname;
+    }
+    public void setStuname(String stuname){
+        this.stuname = stuname;
+    }
+    public String getStuemail(){
+        return stuemail;
+    }
+    public void setStuemail(String stuemail){
+        this.stuemail = stuemail;
+    }
+    public float getCgpa(){
+        return cgpa;
+    }
+    public void setCgpa(float cgpa){
+        this.cgpa = cgpa;
     }
 
-    public String getDepartment() {
-        return department;
+    public Student(int id,String stuname,String stuemail,float cgpa){
+        this.id = id;
+        this.stuname = stuname;
+        this.stuemail = stuemail;
+        this.cgpa = cgpa;
+    }
+
+    public Student(){
     }
 }

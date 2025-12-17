@@ -2,32 +2,32 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Student;
 import com.example.demo.service.StudentService;
+
+import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
-@RequestMapping("/students")
 public class StudentController {
 
-    private final StudentService studentService;
+    @Autowired
+    StudentService ser;
+    
+    @PostMapping("/add_data")
 
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
+    public Student createData(@RequestBody Student stu){
+        return ser.createData(stu);
     }
 
-    @GetMapping
-    public List<Student> getAllStudents() {
-        return studentService.getAllStudents();
+    @GetMapping("/fetch_data")
+    public List<Student> fetchRecord(){
+        return ser.fetchRecord();
     }
 
-    @PostMapping
-    public Student saveStudent(@RequestBody Student student) {
-        return studentService.saveStudent(student);
-    }
-
-    @GetMapping("/{id}")
-    public Student getStudentById(@PathVariable Long id) {
-        return studentService.getStudentById(id);
+    @GetMapping("/fetch_data_id/{id}")
+    public Optional<Student> fetchDataById(@PathVariable int id){
+        return ser.fetchDataById(id);
     }
 }
