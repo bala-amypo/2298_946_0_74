@@ -1,33 +1,30 @@
-package com.example.demo.service.impl;
+package com.example.demo.service.implementation;
 
-import com.example.demo.entity.Student;
-import com.example.demo.service.StudentService;
+import java.util.*;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.demo.entity.Student;
+import com.example.demo.repository.StudentRepository;
+import com.example.demo.service.StudentService;
 
 @Service
 public class ServiceImplementation implements StudentService {
-
-    private final List<Student> students = new ArrayList<>();
+    @Autowired
+    StudentRepository repo;
 
     @Override
-    public List<Student> getAllStudents() {
-        return students;
+
+    public Student createData(Student stu) {
+        return repo.save(stu);
     }
 
-    @Override
-    public Student getStudentById(Long id) {
-        return students.stream()
-                .filter(s -> s.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+    public List<Student> fetchRecord() {
+        return repo.findAll();
     }
 
-    @Override
-    public Student saveStudent(Student student) {
-        students.add(student);
-        return student;
+    public Optional<Student> fetchDataById(int id) {
+        return repo.findById(id);
     }
 }
