@@ -1,30 +1,25 @@
 package com.example.demo.controller;
 
-import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Student;
 import com.example.demo.service.StudentService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
-
-
-import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
 
 @RestController
 public class StudentController {
 
-    @Autowired
-    StudentService ser;
-    
-    @PostMapping("/adddata")
+    private final StudentService studentService;
 
-    public Student createData(@RequestBody Student stu){
-        return ser.fetchRecord();
+    // Constructor Injection (Recommended)
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
     }
 
-    @GetMapping("/fetchdatabyid/{id}")
-    public Optional<Student> fetchDataById(@PathVariable int id){
-        return ser.fetchDataById(id);
+    // GET all students
+    @GetMapping("/students")
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
     }
-    
 }
